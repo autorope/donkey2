@@ -41,12 +41,13 @@ def drive(cfg, model_path=None, use_chaos=False):
           outputs=['user/angle', 'user/throttle', 'user/mode', 'recording'],
           threaded=True)
 
-    state_controller = StateController()
-    V.add(state_controller,
-          inputs=['user/mode',
-                  'user/angle', 'user/throttle',
-                  'pilot/angle', 'pilot/throttle'],
-          outputs=['angle', 'throttle', 'run_pilot_condition'])
+    # See if we should even run the pilot module.
+    # This is only needed because the part run_condition only accepts boolean
+
+    pilot_condition_part = MakeRunConditionBoolean
+    V.add(pilot_condition_part,
+          inputs=['user/mode'],
+          outputs=['run_pilot'])
 
     # Run the pilot if the mode is not user.
     kl = KerasLinear()
@@ -57,6 +58,13 @@ def drive(cfg, model_path=None, use_chaos=False):
           inputs=['cam/image_array'],
           outputs=['pilot/angle', 'pilot/throttle'],
           run_condition='run_pilot_condition')
+
+    state_controller = StateController()
+    V.add(state_controller,
+          inputs=['user/mode',
+                  'user/angle', 'user/throttle',
+                  'pilot/angle', 'pilot/throttle'],
+          outputs=['angle', 'throttle', 'run_pilot_condition'])
 
     steering_controller = PCA9685(cfg.STEERING_CHANNEL)
     steering = PWMSteering(controller=steering_controller,
@@ -122,6 +130,14 @@ def train(cfg, tub_names, new_model_path, base_model_path=None):
              train_split=cfg.TRAIN_TEST_SPLIT)
 
 
+class MakeRunConditionBoolean:
+    def run(self, mode):
+        if mode == 'user':
+            return False
+        else:
+            return True
+
+
 class StateController:
     """
     Wraps a function into a donkey part.
@@ -135,21 +151,19 @@ class StateController:
             pilot_angle, pilot_throttle):
 
         """
-
         Returns the angle, throttle and boolean if autopilot should be run.
         The angle and throttles returned are the ones given to the steering and
         throttle actuators.
-
         """
 
         if mode == 'user':
-            return user_angle, user_throttle, False
+            return user_angle, user_throttle
 
         elif mode == 'local_angle':
-            return pilot_angle, user_throttle, True
+            return pilot_angle, user_throttle
 
         else:
-            return pilot_angle, pilot_throttle, True
+            return pilot_angle, pilot_throttle
 
 
 if __name__ == '__main__':
