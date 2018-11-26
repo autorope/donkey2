@@ -44,7 +44,7 @@ def drive(cfg, model_path=None, use_chaos=False):
     # See if we should even run the pilot module.
     # This is only needed because the part run_condition only accepts boolean
 
-    pilot_condition_part = MakeRunConditionBoolean
+    pilot_condition_part = MakeRunConditionBoolean()
     V.add(pilot_condition_part,
           inputs=['user/mode'],
           outputs=['run_pilot'])
@@ -57,14 +57,14 @@ def drive(cfg, model_path=None, use_chaos=False):
     V.add(kl,
           inputs=['cam/image_array'],
           outputs=['pilot/angle', 'pilot/throttle'],
-          run_condition='run_pilot_condition')
+          run_condition='run_pilot')
 
     state_controller = StateController()
     V.add(state_controller,
           inputs=['user/mode',
                   'user/angle', 'user/throttle',
                   'pilot/angle', 'pilot/throttle'],
-          outputs=['angle', 'throttle', 'run_pilot_condition'])
+          outputs=['angle', 'throttle'])
 
     steering_controller = PCA9685(cfg.STEERING_CHANNEL)
     steering = PWMSteering(controller=steering_controller,
