@@ -1,4 +1,4 @@
-donkeycar==2.5.8
+-e git://github.com/autorope/donkeycar@2.6.1#egg=donkeycar
 -e git://github.com/autorope/donkeypart_PCA9685_actuators@0.1.2#egg=donkeypart_PCA9685_actuators
 -e git://github.com/autorope/donkeypart_keras_behavior_cloning@0.1.2#egg=donkeypart_keras_behavior_cloning
 -e git://github.com/autorope/donkeypart_picamera@0.1#egg=donkeypart_picamera
