@@ -1,7 +1,7 @@
 donkeycar==2.5.8
--e git://github.com/autorope/donkeypart_PCA9685_actuators#egg=donkeypart_PCA9685_actuators
--e git://github.com/autorope/donkeypart_keras_behavior_cloning#egg=donkeypart_keras_behavior_cloning
--e git://github.com/autorope/donkeypart_picamera#egg=donkeypart_picamera
--e git://github.com/autorope/donkeypart_web_controller#egg=donkeypart_web_controller
--e git://github.com/autorope/donkeypart_tub#egg=donkeypart_tub
--e git://github.com/autorope/donkeypart_common#egg=donkeypart_common
+-e git://github.com/autorope/donkeypart_PCA9685_actuators@0.1.2#egg=donkeypart_PCA9685_actuators
+-e git://github.com/autorope/donkeypart_keras_behavior_cloning@0.1.2#egg=donkeypart_keras_behavior_cloning
+-e git://github.com/autorope/donkeypart_picamera@0.1#egg=donkeypart_picamera
+-e git://github.com/autorope/donkeypart_web_controller@0.1#egg=donkeypart_web_controller
+-e git://github.com/autorope/donkeypart_tub@0.1#egg=donkeypart_tub
+-e git://github.com/autorope/donkeypart_common@0.1#egg=donkeypart_common
