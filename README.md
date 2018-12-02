@@ -22,7 +22,7 @@ Run these commands to setup your donkey car app on your car's raspberry pi.
    
 3. Run the drive script.
    ```bash 
-   python manage.py drive
+   python drive.py
    ```
 
 
