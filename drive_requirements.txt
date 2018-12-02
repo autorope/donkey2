@@ -3,5 +3,5 @@
 -e git://github.com/autorope/donkeypart_keras_behavior_cloning@0.1.3#egg=donkeypart_keras_behavior_cloning
 -e git://github.com/autorope/donkeypart_picamera@0.1#egg=donkeypart_picamera
 -e git://github.com/autorope/donkeypart_web_controller@0.1#egg=donkeypart_web_controller
--e git://github.com/autorope/donkeypart_tub@0.1#egg=donkeypart_tub
+-e git://github.com/autorope/donkeypart_tub@0.1.1#egg=donkeypart_tub
 -e git://github.com/autorope/donkeypart_common@0.1#egg=donkeypart_common

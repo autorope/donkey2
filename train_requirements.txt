@@ -1,4 +1,4 @@
 -e git://github.com/autorope/donkeycar@2.6.1#egg=donkeycar
 -e git://github.com/autorope/donkeypart_keras_behavior_cloning@0.1.3#egg=donkeypart_keras_behavior_cloning
--e git://github.com/autorope/donkeypart_tub@0.1#egg=donkeypart_tub
+-e git://github.com/autorope/donkeypart_tub@0.1.1#egg=donkeypart_tub
 -e git://github.com/autorope/donkeypart_common@0.1#egg=donkeypart_common
