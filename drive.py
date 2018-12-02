@@ -86,8 +86,7 @@ def drive(cfg, model_path=None, use_chaos=False):
     V.add(tub, inputs=inputs, run_condition='recording')
 
     # run the vehicle
-    V.start(rate_hz=cfg.DRIVE_LOOP_HZ,
-            max_loop_count=cfg.MAX_LOOPS)
+    V.start(rate_hz=cfg.DRIVE_LOOP_HZ)
 
 
 

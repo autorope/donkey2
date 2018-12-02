@@ -1,32 +1,26 @@
 """
 CAR CONFIG
 
-This file is read by your car application's manage.py script to change the car
-performance.
+This file is read by your cars drive script to ensure repeatable configurations.
 
-EXMAPLE
+EXAMPLE
 -----------
 import dk
 cfg = dk.load_config(config_path='~/mycar/config.py')
 print(cfg.CAMERA_RESOLUTION)
-
 """
-
 
 import os
 
 #PATHS
 CAR_PATH = PACKAGE_PATH = os.path.dirname(os.path.realpath(__file__))
-DATA_PATH = os.path.join(CAR_PATH, 'data')
-MODELS_PATH = os.path.join(CAR_PATH, 'models')
+TUB_PATH = os.path.join(CAR_PATH, 'tub')
 
 #VEHICLE
 DRIVE_LOOP_HZ = 20
-MAX_LOOPS = 100000
 
 #CAMERA
-CAMERA_RESOLUTION = (120, 160) #(height, width)
-CAMERA_FRAMERATE = DRIVE_LOOP_HZ
+CAMERA_RESOLUTION = (120, 160)  # (height, width)
 
 #STEERING
 STEERING_CHANNEL = 1
@@ -39,9 +33,3 @@ THROTTLE_FORWARD_PWM = 400
 THROTTLE_STOPPED_PWM = 360
 THROTTLE_REVERSE_PWM = 310
 
-#TRAINING
-BATCH_SIZE = 128
-TRAIN_TEST_SPLIT = 0.8
-
-
-TUB_PATH = os.path.join(CAR_PATH, 'tub') # if using a single tub
