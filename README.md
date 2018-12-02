@@ -47,5 +47,5 @@ the tubs from your car's pi to your laptop.
 
 3. Train an autopilot
    ```bash
-    python manage.py train /path/to/folder/with/tubs/*
+    python train.py /path/to/folder/with/tubs/*
     ```
