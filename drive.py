@@ -2,11 +2,11 @@
 Scripts to drive a donkey 2 car and train a model for it.
 
 Usage:
-    drive.py [--model=<model>]
+    drive.py [--model=model]
 
 Options:
     -h --help        Show this screen.
-    --model          Path to the model to use for your autopilot.
+    --model MODEL    Path to the model to use for your autopilot.
 """
 import os
 from docopt import docopt
@@ -130,8 +130,7 @@ if __name__ == '__main__':
     args = docopt(__doc__)
     cfg = dk.load_config()
 
-    if args['drive']:
-        drive(cfg, model_path=args['--model'], use_chaos=args['--chaos'])
+    drive(cfg, model_path=args['--model'])
 
 
 
