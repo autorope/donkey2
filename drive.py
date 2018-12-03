@@ -1,5 +1,5 @@
 """
-Scripts to drive a donkey 2 car and train a model for it.
+Script to drive a donkey 2 car.
 
 Usage:
     drive.py [--model=model]
@@ -14,10 +14,11 @@ from docopt import docopt
 import donkeycar as dk
 from donkeypart_picamera import PiCamera
 from donkeypart_keras_behavior_cloning import KerasLinear
-from donkeypart_PCA9685_actuators import PCA9685, PWMSteering, PWMThrottle
 from donkeypart_tub import TubWriter
-from donkeypart_web_controller import LocalWebController
 from donkeypart_common import Timestamp
+
+from donkeypart_bluetooth_game_controller import BluetoothGameController
+from donkeypart_sombrero import Sombrero
 
 
 def drive(cfg, model_path=None, use_chaos=False):
@@ -32,11 +33,12 @@ def drive(cfg, model_path=None, use_chaos=False):
     cam = PiCamera(resolution=cfg.CAMERA_RESOLUTION)
     V.add(cam, outputs=['cam/image_array'], threaded=True)
 
-    ctr = LocalWebController(use_chaos=use_chaos)
-    V.add(ctr,
+    ctl = BluetoothGameController()
+    V.add(ctl,
           inputs=['cam/image_array'],
           outputs=['user/angle', 'user/throttle', 'user/mode', 'recording'],
           threaded=True)
+
 
     # See if we should even run the pilot module.
     # This is only needed because the part run_condition only accepts boolean
@@ -63,19 +65,16 @@ def drive(cfg, model_path=None, use_chaos=False):
                   'pilot/angle', 'pilot/throttle'],
           outputs=['angle', 'throttle'])
 
-    steering_controller = PCA9685(cfg.STEERING_CHANNEL)
-    steering = PWMSteering(controller=steering_controller,
-                           left_pulse=cfg.STEERING_LEFT_PWM,
-                           right_pulse=cfg.STEERING_RIGHT_PWM) 
-
-    throttle_controller = PCA9685(cfg.THROTTLE_CHANNEL)
-    throttle = PWMThrottle(controller=throttle_controller,
-                           max_pulse=cfg.THROTTLE_FORWARD_PWM,
-                           zero_pulse=cfg.THROTTLE_STOPPED_PWM,
-                           min_pulse=cfg.THROTTLE_REVERSE_PWM)
-
-    V.add(steering, inputs=['angle'])
-    V.add(throttle, inputs=['throttle'])
+    sombrero = Sombrero(
+        steering_channel=cfg.STEERING_CHANNEL,
+        steering_left_pwm=cfg.STEERING_LEFT_PWM,
+        steering_right_pwm=cfg.STEERING_RIGHT_PWM,
+        throttle_channel=cfg.THROTTLE_CHANNEL,
+        throttle_forward_pwm=cfg.THROTTLE_FORWARD_PWM,
+        throttle_stop_pwm=cfg.THROTTLE_STOPPED_PWM,
+        throttle_reverse_pwm=cfg.THROTTLE_REVERSE_PWM
+    )
+    V.add(sombrero, inputs=['angle', 'throttle'])
 
     # add tub to save data
     inputs = ['cam/image_array', 'user/angle', 'user/throttle', 'user/mode', 'timestamp']
