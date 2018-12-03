@@ -2,6 +2,9 @@
 
 This is the default method to use the Donkey Car. 
 
+* [Video tutorial.](https://www.youtube.com/watch?v=NGTbzfx7aL4&feature=youtu.be)
+* [Video showing how to create a new car with different parts](https://www.youtube.com/watch?v=xqASPxPpkw0&t=91s)
+
 
 # Get driving.
 
